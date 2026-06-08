@@ -1,0 +1,205 @@
+{
+  "main": {
+    "id": "266a80fe3abf4032",
+    "type": "split",
+    "children": [
+      {
+        "id": "51a70c8e7990dcac",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "01d79e0f09d2c76a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "xbot-api-docs/docs/extension-instructions.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "extension-instructions"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d5af0dbafb7dced1",
+    "type": "split",
+    "children": [
+      {
+        "id": "8f68651239a4559d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e6dc56ac6c6ea523",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "a55e1da196e423ab",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "343ac8bf423c998f",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d97f263dbe0db1b8",
+    "type": "split",
+    "children": [
+      {
+        "id": "633eafa5d42d9534",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7bb9c92cfc802b89",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "xbot-api-docs/docs/extension-instructions.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "extension-instructions 的反向链接列表"
+            }
+          },
+          {
+            "id": "da38dea58fdb93ba",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "xbot-api-docs/docs/extension-instructions.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "extension-instructions 的出链列表"
+            }
+          },
+          {
+            "id": "ea8653741f1dba57",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "36e058bccb7fc52b",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "1b4cfa60cbd9a385",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "xbot-api-docs/docs/extension-instructions.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "extension-instructions 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "01d79e0f09d2c76a",
+  "lastOpenFiles": [
+    "xbot-api-docs/llms.txt.tmp.140473.683469f5c279",
+    "xbot-api-docs/AGENTS.md.tmp.140473.f695234f43f3",
+    "CLAUDE.md.tmp.140473.dfe7a26c5416",
+    "AGENTS.md.tmp.140473.a778cbbed829",
+    "xbot-api-docs/llms.txt.tmp.140676.203412485442",
+    "xbot-api-docs/llms.txt.tmp.140473.6dc796b6c10d",
+    "待优化清单.md",
+    "xbot-api-docs/llms.txt.tmp.140676.b4f6d2f93d06",
+    "llms.txt",
+    "llms.txt.tmp.140676.aadf3eb97428",
+    "xbot-api-docs/docs/browser.md.tmp.105705.b554f6799cbb",
+    "xbot-api-docs/docs/win32.md.tmp.105705.401a0d7eb7d5",
+    "xbot-api-docs/docs/xzip.md",
+    "xbot-api-docs/docs/win32.md",
+    "xbot-api-docs/docs/logging.md",
+    "xbot-api-docs/docs/package.md"
+  ]
+}

@@ -1,0 +1,11 @@
+.idea/
+
+# Extracted or decompiled runtime/source artifacts are intentionally not published.
+shadowbot_winro_extracted/
+*.pyb
+*.pyc
+__pycache__/
+
+# Local/system noise
+.DS_Store
+Thumbs.db

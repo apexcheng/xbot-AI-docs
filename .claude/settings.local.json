@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone *)",
+      "Bash(git mv *)",
+      "Read(//mnt/c/$Recycle.Bin/S-1-5-21-4168504818-2668863101-2382334410-500/$RMKVQKQ/ad_killer/**)",
+      "Read(//mnt/c/$Recycle.Bin/S-1-5-21-4168504818-2668863101-2382334410-500/$RMKVQKQ/web_action/**)",
+      "Read(//mnt/c/$Recycle.Bin/S-1-5-21-4168504818-2668863101-2382334410-500/$RMKVQKQ/activity_5b77c4ce/**)",
+      "Read(//mnt/c/$Recycle.Bin/S-1-5-21-4168504818-2668863101-2382334410-500/$RMKVQKQ/activity_6f13bae5/**)",
+      "Read(//mnt/c/$Recycle.Bin/S-1-5-21-4168504818-2668863101-2382334410-500/$RMKVQKQ/activity_df0688e4/**)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(git init *)",
+      "Bash(git submodule *)"
+    ]
+  }
+}
