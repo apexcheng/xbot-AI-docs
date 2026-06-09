@@ -36,9 +36,10 @@
 
 1. 先读 `AGENTS.md` 和 `README.md`，再进入具体文档。
 2. 不确定 API 行为时，不要猜，先查对应文档。
-3. 市场指令参数不明确时，优先看 `docs/debug/market-extension-source.md`。
-4. 未验证内容必须标注“需运行验证”。
-5. 如果发现文档与根目录总览、真实代码或项目状态不一致，按根目录 `llms.txt` 的文档维护规则处理。
+3. 浏览器、URL、网页业务功能默认只使用 `xbot.web`；除非用户明确要求，不要使用 `requests`、`httpx`、`aiohttp`、`urllib` 或其他网络相关 Python 库。
+4. 市场指令参数不明确时，优先看 `docs/debug/market-extension-source.md`。
+5. 未验证内容必须标注“需运行验证”。
+6. 如果发现文档与根目录总览、真实代码或项目状态不一致，按根目录 `llms.txt` 的文档维护规则处理。
 
 ## 影刀项目开发流程
 
