@@ -4,6 +4,8 @@
 > 重点：把 `xbot.web` 常用方法、参数、默认值、可选值写清楚。  
 > 规则：字符串参数必须按文档中的值原样传入，例如 `mode="chrome"`，不是 `Chrome` / `CHROME`。
 
+涉及浏览器、URL、网页业务功能时，除非用户明确要求，否则不要使用 `requests`、`httpx`、`aiohttp`、`urllib` 或其他网络相关 Python 库；只使用 `xbot.web` 及其浏览器对象能力处理页面、请求、Cookie、网络监听和下载。
+
 ---
 
 ## 0. 相关基础文档

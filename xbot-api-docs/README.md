@@ -1,12 +1,12 @@
 # 影刀 xbot API 文档整理
 
-本仓库整理影刀 ShadowBot / xbot 编码版常用 API、调试方法和参考资料，主要供 AI Agent / Claude Code / Codex 编写自动化脚本时查阅。
+本目录整理影刀 ShadowBot / xbot 编码版常用 API、调试方法和参考资料，主要供 AI Agent / Claude Code / Codex 编写自动化脚本时查阅。
 
 ## 快速入口
 
 | 类型 | 文档 |
 |---|---|
-| Agent 规则 | [`AGENTS.md`](AGENTS.md) |
+| 子目录说明 | [`AGENTS.md`](AGENTS.md) |
 | LLM 索引 | [`llms.txt`](llms.txt) |
 | 基础对象与全局变量 | [`docs/package.md`](docs/package.md) |
 | 浏览器操作 | [`docs/browser.md`](docs/browser.md) |
@@ -26,16 +26,16 @@
 
 ## 重要约定
 
-- 本仓库以整理后的 Markdown 文档为主。
+- 本目录以整理后的 Markdown 文档为主。
 - 不提交、不分发影刀运行包源码。
 - 未验证内容必须标注 `"需运行验证"`。
-- Agent 写代码前应先读 [`AGENTS.md`](AGENTS.md) 和 [`llms.txt`](llms.txt)。
+- Agent 写代码前应先读根目录 [`../AGENTS.md`](../AGENTS.md)，再按需查看本目录 [`AGENTS.md`](AGENTS.md) 和 [`llms.txt`](llms.txt)。
 
 ## 源码参考路径
 
 - 内置指令源码：`C:\Program Files\ShadowBot\shadowbot-6.0.30\Resources\Code-Activity\Zh-CN\xbot`
-- 已安装的市场指令：`C:\Users\Administrator\AppData\Local\ShadowBot\users\859019956984664066\apps\03259a30-a8c9-47e2-b647-ccb6bc4d4206\xbot_extensions`
-- 如果该用户 ID 对应目录不存在，再查同目录下其它用户的 `apps` 目录
+- 已安装的市场指令：`%LOCALAPPDATA%\ShadowBot\users\<user_id>\apps\<app_id>\xbot_extensions`
+- `<user_id>` 和 `<app_id>` 以当前影刀用户和当前应用目录为准；不要把固定账号目录当作通用路径。
 
 ## 核心结论速查
 

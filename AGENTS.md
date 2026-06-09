@@ -1,19 +1,22 @@
 # AGENTS.md
 
-本项目是影刀 ShadowBot / xbot API 开发指南，供 Claude Code、Codex、Hermes/OpenClaw 等 AI Agent 使用。
+本文件是当前知识库仓库的唯一稳定 Agent 主规则入口。Codex、Claude Code、Hermes/OpenClaw 等 AI Agent 进入本仓库时，应优先遵循本文件。
+
+本仓库是影刀 xbot / AI 开发知识库，不是真实影刀项目根目录。实际开发影刀项目时，Agent 应打开真实影刀项目根目录工作。
+
+`templates/` 只保存可选的通用 Agent 规则模板，不参与本知识库检索和规则加载。
 
 ## 使用顺序
 
 1. 先看 `llms.txt`，了解项目总览、目录结构和文档入口。
-2. Claude Code 再看 `CLAUDE.md`。
-3. 进入 `xbot-api-docs/` 后，再看该目录下的 `AGENTS.md` 和 `llms.txt`。
-4. 任务涉及影刀 API、xbot 指令、开发流程或文档维护时，Agent 应主动读取对应文档；`llms.txt` 不是所有 Agent 都会自动读取。
+2. 进入 `xbot-api-docs/` 后，再看该目录下的 `AGENTS.md` 和 `llms.txt`。
+3. 任务涉及影刀 API、xbot 指令、开发流程或文档维护时，Agent 应主动读取对应文档；`llms.txt` 不是所有 Agent 都会自动读取。
 
 ## 使用原则
 
 1. 写影刀编码版代码前，优先查 `xbot-api-docs`。
 2. 不确定 API 行为时，不要猜，标注“需运行验证”。
-3. 市场指令参数不明确时，先按 `market-extension-source.md` 的方法排查源码。
+3. 市场指令参数不明确时，先按 `xbot-api-docs/docs/debug/market-extension-source.md` 的方法排查源码。
 4. 价格采集优先使用 XPath、CSS、页面接口或明确规则取数，不要让 Agent 自由猜页面价格。
 5. 涉及浏览器、URL、网页业务功能时，除非用户明确要求，不要使用 `requests`、`httpx`、`aiohttp`、`urllib` 或其他网络相关 Python 库；只使用 `xbot.web` 及其浏览器对象能力处理页面、请求、Cookie、网络监听和下载。
 6. 代码优先保证可读性，变量名、流程和判断逻辑要直观。
@@ -29,6 +32,7 @@
 16. 中文或长文本输入优先考虑剪贴板输入。
 17. 表格大量写入时，优先考虑二维数组批量写入。
 18. 不要提交影刀运行包源码、反编译源码、敏感路径、账号信息或 token。
+19. 不要编造不存在的功能、命令、目录、文件或 API。
 
 ## 代码风格要求
 
