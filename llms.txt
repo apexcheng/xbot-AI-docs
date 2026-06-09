@@ -15,7 +15,6 @@
   - `docs/debug/`：调试与排查文档。
   - `examples/`：示例代码。
 - `reference-analysis/`：对旧项目代码扫描后的补充分析。
-- `.claude/`：Claude Code 本地配置。
 - `AGENTS.md`：Agent 开发规则。
 - `CLAUDE.md`：Claude Code 额外规则。
 
