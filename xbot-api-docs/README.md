@@ -1,6 +1,6 @@
 # 影刀 xbot API 文档整理
 
-本仓库整理影刀 ShadowBot / xbot 编码版常用 API、调试方法和实战方案，主要供 AI Agent / Claude Code / Codex 编写自动化脚本时查阅。
+本仓库整理影刀 ShadowBot / xbot 编码版常用 API、调试方法和参考资料，主要供 AI Agent / Claude Code / Codex 编写自动化脚本时查阅。
 
 ## 快速入口
 
@@ -18,12 +18,10 @@
 | 键盘鼠标 | [`docs/keyboard-mouse.md`](docs/keyboard-mouse.md) |
 | 市场指令调试 | [`docs/debug/market-extension-source.md`](docs/debug/market-extension-source.md) |
 | 市场指令扩展开发 | [`docs/extension-instructions.md`](docs/extension-instructions.md) |
-| 价格监控方案 | [`recipes/price-monitoring.md`](recipes/price-monitoring.md) |
 
 ## 文档分区
 
 - [`docs/`](docs/)：API 能力说明
-- [`recipes/`](recipes/)：业务场景方案
 - [`examples/`](examples/)：最小代码示例
 
 ## 重要约定

@@ -152,6 +152,18 @@
 - `process7` 淘宝登录：淘宝/天猫买家平台（购物）
 - `qn_login` 千牛登录：淘宝/天猫商家后台（千牛工作台）
 
+**选择建议：**
+
+- 目标是普通购物页、订单页、买家视角页面时，优先选 `process6` / `process7`
+- 目标是商家后台、经营工作台、店铺管理页时，优先选 `process56` / `qn_login`
+- 不要因为平台同属京东或淘宝，就把买家登录和商家后台登录混用
+- `qn_login` 是 Direct Python 调用，适合编码版直接控制；`process7` 是 Visual flow，更接近可视化流程入口
+
+**需运行验证：**
+
+- `process56` 与 `process6` 的全部入参差异
+- `qn_login.login()` 中 `engine` 的完整可选值
+
 ---
 
 ### 2.5 activity_df0688e4 — C-ERP API
@@ -780,6 +792,26 @@ from xbot_extensions.activity_7bca6d.drag_captcha import move_captcha
 move_captcha(web_page, distance=100, drag_ele=slider)
 ```
 
+**调用模板：登录后继续操作**
+
+```python
+from xbot_extensions.activity_7bca6d import process56
+
+web_page = process56(
+    浏览器类型="chrome",
+    京麦账号="xxx",
+    京麦密码="xxx",
+    图鉴账号="",
+    图鉴密码="",
+    重试次数=3,
+    识别引擎="图鉴",
+)
+
+web_page.wait_load_completed(timeout=30)
+target = web_page.find_by_xpath('//input[@type="text"]', timeout=20)
+target.clipboard_input("测试关键字", delay_after=0.3)
+```
+
 ---
 
 ### 4.5 C-ERP API (activity_df0688e4)
@@ -825,6 +857,22 @@ select_stock.main(args)
 payload = build_payload(
     method="gy.erp.stock.get",
     warehouse_code="WH001"
+)
+result = gy_call(payload)
+```
+
+**调用模板：从 `package.variables` 读取 ERP 凭证**
+
+```python
+from . import package
+from xbot_extensions.activity_df0688e4.core import build_payload, gy_call
+
+payload = build_payload(
+    method="gy.erp.order.get",
+    app_key=package.variables["APP_KEY"],
+    session_key=package.variables["SESSION_KEY"],
+    secret=package.variables["SECRET"],
+    code=package.variables["order_code"],
 )
 result = gy_call(payload)
 ```
@@ -878,6 +926,13 @@ result = gy_call(payload)
 - 内置广告名单在 `ad_conf.py` 中，按域名匹配
 - `_core.py` 中的 `AdKiller` 类可直接使用
 
+**选择建议：**
+
+- 能确认广告元素但不确定关闭按钮时，优先用 `关闭方式="hidden"`
+- 只有在广告弹窗确实存在可点击关闭按钮时，再用 `关闭方式="click"`
+- 已知目标站点经常弹广告时，优先尝试 `使用内置广告Xpath=True`
+- 内置名单不生效时，再补自定义 `广告Xpath`
+
 **典型调用方式：**
 ```python
 # 方式一：使用内置广告名单（推荐）
@@ -917,6 +972,32 @@ from xbot_extensions.ad_killer._core import AdKiller
 killer = AdKiller(web_page, ad_xpath="//div[@class='ad']",
                   close_type="hidden", use_builtin=True)
 killer.close_ads()
+```
+
+**调用模板：登录后先关广告再采集**
+
+```python
+from xbot_extensions.activity_7bca6d import process21
+from xbot_extensions.ad_killer import close_ads
+
+web_page = process21(
+    浏览器类型="chrome",
+    识别引擎="图鉴",
+    账号="xxx",
+    密码="xxx",
+    验证码重试次数=3,
+    是否创建新页面=True,
+)
+
+close_ads(
+    网页对象=web_page,
+    广告Xpath="",
+    使用内置广告Xpath=True,
+    关闭方式="hidden",
+)
+
+web_page.wait_load_completed(timeout=30)
+rows = web_page.find_all_by_xpath('//div[@class="item"]', timeout=10)
 ```
 
 ---

@@ -1,12 +1,11 @@
 # xbot-api-docs
 
-本仓库整理影刀 ShadowBot / xbot 编码版的 API 文档、调试方法和实战方案，主要供 AI Agent / Claude Code 在编写自动化脚本时快速查阅。根目录 `llms.txt` 负责整个项目总览，本文件只覆盖 `xbot-api-docs/` 子文档仓库。`llms.txt` 不是所有 Agent 都会自动读取；当任务涉及影刀 API、xbot 指令、开发流程或文档维护时，Agent 应主动读取本文件。
+本仓库整理影刀 ShadowBot / xbot 编码版的 API 文档、调试方法和参考资料，主要供 AI Agent / Claude Code 在编写自动化脚本时快速查阅。根目录 `llms.txt` 负责整个项目总览，本文件只覆盖 `xbot-api-docs/` 子文档仓库。`llms.txt` 不是所有 Agent 都会自动读取；当任务涉及影刀 API、xbot 指令、开发流程或文档维护时，Agent 应主动读取本文件。
 
 ## 项目用途
 
 - 提供影刀 xbot 编码版的 API 说明。
 - 提供市场指令源码排查方法。
-- 提供可直接参考的业务场景方案。
 - 帮助 Agent 快速判断“该看哪份文档”。
 - 进入 `xbot-api-docs/` 后，优先按本文件再跳转到具体专项文档。
 
@@ -14,7 +13,6 @@
 
 - `docs/`：API 能力说明。
 - `docs/debug/`：调试与排查文档。
-- `recipes/`：业务场景方案。
 - `examples/`：最小代码示例。
 
 ## 关键文件
@@ -33,8 +31,6 @@
 - `docs/package.md`：基础对象与全局变量。
 - `docs/debug/market-extension-source.md`：市场指令源码排查。
 - `docs/extension-instructions.md`：市场指令扩展开发。
-- `recipes/README.md`：实战方案总览。
-- `recipes/price-monitoring.md`：价格监控方案。
 
 ## 文档使用规则
 
@@ -42,8 +38,7 @@
 2. 不确定 API 行为时，不要猜，先查对应文档。
 3. 市场指令参数不明确时，优先看 `docs/debug/market-extension-source.md`。
 4. 未验证内容必须标注“需运行验证”。
-5. 需要组合业务方案时，优先看 `recipes/`；只查能力细节时，优先看 `docs/`。
-6. 如果发现文档与根目录总览、真实代码或项目状态不一致，按根目录 `llms.txt` 的文档维护规则处理。
+5. 如果发现文档与根目录总览、真实代码或项目状态不一致，按根目录 `llms.txt` 的文档维护规则处理。
 
 ## 影刀项目开发流程
 
@@ -60,7 +55,6 @@
 - 键盘鼠标：`docs/keyboard-mouse.md`
 - 桌面通知：`docs/notification.md`
 - 市场指令调用与排查：`docs/extension-instructions.md`、`docs/debug/market-extension-source.md`
-- 价格采集方案：`recipes/price-monitoring.md`
 
 ## 注意事项
 

@@ -145,6 +145,12 @@ browser = web.create(
 | `executable_path` | `str` / `None` | 否 | `None` | 自定义浏览器路径 |
 | `arguments` | `list` / `str` / `None` | 否 | `None` | 启动参数 |
 
+实战建议：
+
+- 普通页面打开可先用默认 `load_timeout=20`
+- 登录、电商后台、采价等慢页面，旧项目里更常见 `load_timeout=30`
+- 如果文档写的是默认值，不代表业务里一定适合默认值；以当前页面加载稳定性为准
+
 ---
 
 ## 6. 获取网页：`get()` / `get_active()` / `get_all()`
@@ -542,6 +548,12 @@ result = element.execute_javascript(
 | `code` | `str` | 必填 | JS 函数字符串，必须是函数形式 |
 | `argument` | `str` / `None` | `None` | 传给 JS 的参数，复杂对象建议转 JSON 字符串 |
 | `execution_world` | `str` | `"ISOLATED"` | `"ISOLATED"` / `"MAIN"` |
+
+注意：
+
+- `execution_world` 建议按文档中的大写值传入，不要自行改成小写
+- 需要隔离执行时优先用 `"ISOLATED"`
+- 需要直接访问页面主环境对象时再考虑 `"MAIN"`
 
 ---
 

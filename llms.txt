@@ -4,16 +4,15 @@
 
 ## 项目用途
 
-- 汇总影刀 xbot 编码版常用 API、调试方法和实战方案。
+- 汇总影刀 xbot 编码版常用 API、调试方法和参考资料。
 - 提供给 AI Agent 快速定位文档、判断 API 用法、避免猜参数。
 - 当前仓库以 Markdown 文档为主，不是应用代码仓库。
 
 ## 目录结构
 
-- `xbot-api-docs/`：核心文档仓库，包含 API 说明、调试方法和实战方案。
+- `xbot-api-docs/`：核心文档仓库，包含 API 说明和调试方法。
   - `docs/`：API 能力说明。
   - `docs/debug/`：调试与排查文档。
-  - `recipes/`：业务场景方案。
   - `examples/`：示例代码。
 - `reference-analysis/`：对旧项目代码扫描后的补充分析。
 - `.claude/`：Claude Code 本地配置。
@@ -33,7 +32,6 @@
 - `xbot-api-docs/docs/excel.md`：表格操作。
 - `xbot-api-docs/docs/debug/market-extension-source.md`：市场指令源码排查方法。
 - `xbot-api-docs/docs/extension-instructions.md`：市场指令扩展开发与调用规则。
-- `xbot-api-docs/recipes/price-monitoring.md`：价格监控方案。
 - `reference-analysis/STYLE.md`：旧项目代码风格总结。
 - `reference-analysis/UNCOVERED_XBOT_APIS.md`：旧项目扫描发现的待补充 API 记录。
 
@@ -51,7 +49,6 @@
 - 键盘鼠标：`xbot-api-docs/docs/keyboard-mouse.md`
 - 市场指令排查：`xbot-api-docs/docs/debug/market-extension-source.md`
 - 市场指令开发：`xbot-api-docs/docs/extension-instructions.md`
-- 业务方案：`xbot-api-docs/recipes/`
 - 历史补充分析：`reference-analysis/`
 
 ## 禁止事项 / 注意事项

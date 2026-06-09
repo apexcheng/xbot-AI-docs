@@ -246,6 +246,31 @@ from xbot.app.dialog import show_notifycation
 show_notifycation("✅ 完成", placement="rightbottom", level="info")
 ```
 
+### 旧项目常见写法
+
+```python
+from xbot.app.dialog import show_notifycation
+
+show_notifycation(
+    message="❌ 采集失败",
+    placement="top",
+    level="warning",
+)
+```
+
+### 使用建议
+
+- 成功提示：优先用 `level="info"`
+- 失败或异常提示：优先用 `level="warning"` 或 `level="error"`
+- 旧项目里常见 `placement="top"`，当前源码默认值仍以 `rightbottom` 为准
+- 如果只是补充进度提示，建议只传 `message` 和 `level`，避免无必要依赖位置参数
+
+### 需运行验证
+
+- `placement` 的完整可选值
+- `level` 是否还有 `success` 等别名
+- 不同影刀版本下通知展示样式是否一致
+
 ---
 
 ## 13. `close_notifycation()`
