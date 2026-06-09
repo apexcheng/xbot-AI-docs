@@ -80,9 +80,15 @@
 3. Agent 在真实影刀项目目录中开发和修改代码；本仓库只用于查规则、查 API、查示例和查排错方法，不承担业务项目源码目录角色。
 4. 影刀项目代码入口通常为 `main(args)`；常见初始化导入包括 `import xbot`、`from . import package`、`from .package import variables as glv`。
 5. `args` 中使用的流程参数名必须由人类先在影刀编辑器中配置，Agent 不应自行猜测参数名。
-6. 开发完成后，代码不会自动进入影刀编辑器，必须使用 `shadowbot_dev_tool.py` 同步到影刀编辑器。
+6. 开发完成后，代码不会自动进入影刀编辑器，必须从本仓库根目录调用 `shadowbot_dev_tool.py`，并指定目标影刀项目目录进行同步。
 7. 同步前先核对：`main(args)` 入口结构是否正确、`args` 参数名是否已配置、`package.variables` 变量名是否一致、元素库名称和资源文件名称是否一致、目标项目环境是否已安装所需市场指令。
 8. 测试由人类在影刀编辑器中完成；Agent 根据测试反馈继续修改并再次同步，不把“已同步”写成“已在编辑器内验证通过”。
+
+最小调用示例：
+
+```powershell
+python .\shadowbot_dev_tool.py --project-dir "C:\Users\Administrator\AppData\Local\ShadowBot\users\userid\apps\your_app_id" prepare main.py
+```
 
 ## 文档维护约定
 
