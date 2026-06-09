@@ -8,7 +8,6 @@ from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parent
-DEFAULT_GROUP_NAME = "工具"
 
 
 def resolve_project_dir(project_dir=None):
@@ -112,39 +111,38 @@ def ensure_code_flow(package_data, file_name, group_name=None):
             existing_flow = flow
             break
 
-    if existing_flow:
-        target_group_name = group_name or existing_flow.get("groupName") or DEFAULT_GROUP_NAME
-    else:
-        target_group_name = group_name or DEFAULT_GROUP_NAME
-
-    target_group_name = ensure_group_exists(package_data, target_group_name)
+    target_group_name = None
+    if group_name is not None:
+        target_group_name = ensure_group_exists(package_data, group_name)
 
     if existing_flow:
         existing_flow["name"] = flow_name
         existing_flow["filename"] = flow_name
         existing_flow["kind"] = "Code"
         existing_flow["opened"] = False
-        existing_flow["groupName"] = target_group_name
+        if group_name is not None:
+            existing_flow["groupName"] = target_group_name
         existing_flow["enableCopilot"] = False
         return {
             "file": py_name,
             "flow": flow_name,
-            "group": target_group_name,
+            "group": existing_flow.get("groupName"),
             "action": "updated",
         }
 
-    package_data.setdefault("flows", []).append({
+    new_flow = {
         "name": flow_name,
         "filename": flow_name,
         "kind": "Code",
         "opened": False,
         "groupName": target_group_name,
         "enableCopilot": False,
-    })
+    }
+    package_data.setdefault("flows", []).append(new_flow)
     return {
         "file": py_name,
         "flow": flow_name,
-        "group": target_group_name,
+        "group": new_flow.get("groupName"),
         "action": "created",
     }
 
