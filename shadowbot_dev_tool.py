@@ -244,14 +244,85 @@ def command_compile(args):
     print(f"compiled_with={python_exe}")
 
 
+def _find_imported_modules(src_text):
+    """Return module stem names found in source text import statements."""
+    imported = set()
+    for line in src_text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith(("from ", "import ")):
+            try:
+                parts = stripped.split()
+                if stripped.startswith("from "):
+                    # from . import package or from .module import name
+                    if len(parts) >= 2:
+                        name = parts[1].lstrip(".").split(".")[0]
+                        if name and name not in (
+                            "xbot", "xbot_extensions", "package",
+                            "sys", "os", "re", "json", "datetime", "typing",
+                        ):
+                            imported.add(name)
+                else:  # import module
+                    name = parts[1].split(".")[0].split("(")[0].strip()
+                    if name and name not in (
+                        "xbot", "xbot_extensions", "package",
+                        "sys", "os", "re", "json", "datetime", "typing",
+                    ):
+                        imported.add(name)
+            except Exception:
+                pass
+    return imported
+
+
+def _discover_helper_modules(project_dir, entry_files):
+    """Find non-entry *.py files that are imported by entry files.
+
+    An entry file like run.py imports helpers with relative imports
+    (e.g. from .constants import ...).  We find all .py files in project_dir,
+    check which ones are imported by any entry file, and return those that
+    are not entry_files themselves.
+    """
+    entry_stems = {Path(f).stem for f in entry_files}
+    # Scan every .py in the project_dir to build a name->filename map
+    name_to_file = {}
+    for py_file in project_dir.glob("*.py"):
+        stem = py_file.stem
+        if stem not in name_to_file:
+            name_to_file[stem] = py_file.name
+
+    helpers = []
+    for fname in entry_files:
+        src_path = project_dir / fname
+        if not src_path.exists():
+            continue
+        src = src_path.read_text(encoding="utf-8")
+        imported = _find_imported_modules(src)
+        for name in imported:
+            if name in name_to_file and name not in entry_stems:
+                helpers.append(name_to_file[name])
+
+    # Deduplicate while preserving order
+    seen = set()
+    unique = []
+    for h in helpers:
+        if h not in seen:
+            seen.add(h)
+            unique.append(h)
+    return unique
+
+
 def command_prepare(args):
     """Run the common external-edit workflow.
 
     It backs up the files, ensures the flows exist, and compiles them.
+    Helper modules imported by entry .py files are automatically discovered and compiled too.
     """
     project_dir = resolve_project_dir(args.project_dir)
-    files = list(dict.fromkeys(args.files + ["package.json"]))
-    backup_dir, copied = create_backup(project_dir, files)
+
+    # Discover helper modules imported by the entry files
+    helpers = _discover_helper_modules(project_dir, args.files)
+
+    all_files = list(dict.fromkeys(args.files + ["package.json"] + helpers))
+    backup_dir, copied = create_backup(project_dir, all_files)
 
     package_data = load_package_json(project_dir)
     results = []
@@ -259,16 +330,20 @@ def command_prepare(args):
         results.append(ensure_code_flow(package_data, file_name, args.group))
     save_package_json(project_dir, package_data)
 
-    python_exe = compile_files(project_dir, args.files)
+    # Compile entry files + discovered helpers
+    to_compile = list(dict.fromkeys(args.files + helpers))
+    python_exe = compile_files(project_dir, to_compile)
 
     print(f"backup_dir={backup_dir}")
-    for item in copied:
+    for item in sorted(set(copied)):
         print(f"copied={item}")
     for result in results:
         print(
             f"{result['action']} flow:"
             f" file={result['file']}, flow={result['flow']}, group={result['group']}"
         )
+    if helpers:
+        print(f"helpers_compiled={helpers}")
     print(f"compiled_with={python_exe}")
 
 
