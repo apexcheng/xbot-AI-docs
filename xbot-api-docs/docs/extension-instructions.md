@@ -24,6 +24,7 @@
 | `activity_5b77c4ce` | 钉钉AI表格 | direct python | ✅ | ✅ | ✅ (仅 import) | ❌ | ✅ (3 个) |
 | `activity_6f13bae5` | 钉钉企业机器人消息_v2 | both | ✅ | ✅ | ✅ (process1/2/3) | ✅ (core.py) | ✅ (4 个) |
 | `activity_7bca6d` | 登录扩展操作 | both | ✅ | ✅ | ✅ (17 个 process) | ❌ | ✅ (11 个业务) |
+| `activity_dae43741` | 增强工具2026 | direct python | ✅ | ✅ | ✅ (仅模块导入) | ❌ | ✅ (`browser_utils.py`、`exception_utils.py`) |
 | `activity_df0688e4` | C-ERP API | direct python | ✅ | ✅ | ✅ (仅 import) | ✅ (core.py) | ✅ (7 个业务) |
 | `ad_killer` | 广告杀手 | both | ✅ | ✅ | ✅ (close_ads/close_ads_win) | ✅ (_core.py) | ✅ (7 个) |
 | `web_action` | 网页扩展操作 | both | ✅ | ✅ | ✅ (18 个 process) | ❌ | ✅ (10 个业务) |
@@ -247,6 +248,16 @@
 **JS库枚举值：** `"jquery"`、`"html2canvas.min.js"`、`"$x.js"`
 
 **JS来源类型枚举值：** `"在线地址"`、`"文件路径"`、`"字符串"`
+
+---
+
+### 2.8 activity_dae43741 — 增强工具2026
+
+| 指令显示名 | 调用类型 | 对应 function | __init__.py 入口 | 独立 Python | 主要入参 | 主要出参 |
+|---|---|---|---|---|---|---|
+| XPath 等待出现 | direct python | `wait_appear_by_xpath` | —（仅模块导入） | `browser_utils.py` | `page`、`xpath`、`timeout` | `WebElement` 或 `None` |
+| XPath 等待消失 | direct python | `wait_disappear_by_xpath` | —（仅模块导入） | `browser_utils.py` | `page`、`xpath`、`timeout` | `bool` |
+| 异常详情格式化 | direct python | `format_exception_detail` | —（仅模块导入） | `exception_utils.py` | `e` | `str` |
 
 ---
 
@@ -1065,6 +1076,63 @@ select_date(web_page, date_elem, "2024-01-01", "2024-12-31", simulative=True)
 
 ---
 
+### 4.8 增强工具2026 (activity_dae43741)
+
+**目录/指令名：** `activity_dae43741` / 增强工具2026
+
+**调用方式：** direct python
+
+**用途：** 面向 `xbot` 的增强工具包。当前已收录浏览器 XPath 等待增强和异常详情格式化，后续可继续扩展更多通用增强工具。
+
+**调用入口：**
+- `from xbot_extensions.activity_dae43741.browser_utils import wait_appear_by_xpath`
+- `from xbot_extensions.activity_dae43741.browser_utils import wait_disappear_by_xpath`
+- `from xbot_extensions.activity_dae43741.exception_utils import format_exception_detail`
+
+**当前能力：**
+- `wait_appear_by_xpath(page, xpath, timeout=20)`：循环调用 `page.find_by_xpath(xpath, timeout=1)`，找到即返回元素，超时返回 `None`
+- `wait_disappear_by_xpath(page, xpath, timeout=20)`：循环调用 `page.find_by_xpath(xpath, timeout=1)`，查找抛异常即视为已消失，返回 `True`；超时返回 `False`
+- `format_exception_detail(e)`：返回错误信息、报错位置、当前时间、函数名、代码行，适合通知或日志汇总
+
+**适用场景：**
+- Agent 编码场景里只有 XPath 字符串，没有元素库选择器
+- 原生 `wait_appear()` / `wait_disappear()` 不方便直接用于 XPath 字符串等待
+- 需要把异常对象整理成更易读的文本内容
+
+**最小示例：**
+
+```python
+from xbot_extensions.activity_dae43741.browser_utils import (
+    wait_appear_by_xpath,
+    wait_disappear_by_xpath,
+)
+from xbot_extensions.activity_dae43741.exception_utils import format_exception_detail
+
+
+element = wait_appear_by_xpath(page, '//button[contains(., "查询")]', timeout=10)
+if not element:
+    raise RuntimeError("查询按钮等待超时")
+element.click()
+
+if not wait_disappear_by_xpath(page, '//div[@class="loading"]', timeout=20):
+    raise RuntimeError("loading 未消失")
+
+try:
+    page.find_by_xpath('//input[@name="keyword"]', timeout=3).input("影刀")
+except Exception as e:
+    detail = format_exception_detail(e)
+    xbot.print(detail)
+```
+
+**注意事项：**
+- 这是市场扩展能力，不是原生 `xbot` 内置 API
+- `wait_appear_by_xpath()` / `wait_disappear_by_xpath()` 面向 XPath 字符串，不是元素库选择器
+- `wait_disappear_by_xpath()` 的判定依据是“查找抛异常即视为已消失”
+- 当前 `__init__.py` 仅做模块导入，不建议把隐藏的 Visual block 当作主要调用方式
+- 后续如果该扩展新增能力，应按源码实际接口继续补充，不要提前推断
+
+---
+
 ## 五、证据引用
 
 ### 5.1 文件路径汇总
@@ -1074,6 +1142,9 @@ select_date(web_page, date_elem, "2024-01-01", "2024-12-31", simulative=True)
 | package.json 结构 | `activity_*/package.json`、`ad_killer/package.json`、`web_action/package.json` |
 | block 定义 | `activity_*/prototype.block.json` |
 | __init__.py 包装模式 | `activity_47680f64/__init__.py`、`activity_6f13bae5/__init__.py`、`ad_killer/__init__.py`、`web_action/__init__.py` |
+| 仅模块导入型增强工具 | `activity_dae43741/__init__.py`：仅导入 `package`、`xbot_visual`、`exception_utils` |
+| XPath 等待增强 | `activity_dae43741/browser_utils.py`：`wait_appear_by_xpath()`、`wait_disappear_by_xpath()` |
+| 异常详情格式化 | `activity_dae43741/exception_utils.py`：`format_exception_detail()` |
 | processN() 标准包装 | `activity_47680f64/__init__.py:process2` 第 18-28 行、`web_action/__init__.py:process1` 第 5-15 行 |
 | 仅 import 无包装 | `activity_5b77c4ce/__init__.py`、`activity_df0688e4/__init__.py` |
 | close_ads 默认值 | `ad_killer/_core.py` 第 25-28 行：`close_type` 默认 `"hidden"` |
@@ -1125,6 +1196,7 @@ select_date(web_page, date_elem, "2024-01-01", "2024-12-31", simulative=True)
 | 钉钉消息通知 | `activity_6f13bae5` | `process1`、`process2`、`to_markdown_table` |
 | 电商后台登录 | `activity_7bca6d` | `process7`(淘宝)、`process6`(京东)、`process21`(拼多多) |
 | ERP 数据查询 | `activity_df0688e4` | `select_stock`、`select_item`、`select_order_list` |
+| XPath 等待 / 异常详情格式化 | `activity_dae43741` | `wait_appear_by_xpath`、`wait_disappear_by_xpath`、`format_exception_detail` |
 | 关闭网页广告 | `ad_killer` | `close_ads`、`close_ads_win` |
 | 网页元素扩展操作 | `web_action` | `process1`(滚动)、`process4`(背景色)、`select_date` |
 
@@ -1133,5 +1205,5 @@ select_date(web_page, date_elem, "2024-01-01", "2024-12-31", simulative=True)
 | 调用类型 | 目录 |
 |---|---|
 | 仅 Flow（Visual） | —（所有支持 Flow 的目录也支持 Direct） |
-| 仅 Direct Python | `activity_5b77c4ce`、`activity_df0688e4` |
+| 仅 Direct Python | `activity_5b77c4ce`、`activity_dae43741`、`activity_df0688e4` |
 | Flow + Direct | `activity_47680f64`、`activity_6f13bae5`、`activity_7bca6d`、`ad_killer`、`web_action` |

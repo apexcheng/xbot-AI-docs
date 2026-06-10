@@ -100,10 +100,10 @@ glv['my_var'] = 'value'
 | 层级 | 推荐使用场景 | 返回对象 |
 |---|---|---|
 | `xbot.web` | 普通网页自动化主线 | 原生 `WebBrowser` / `WebElement` |
-| `xbot_ai.web` | 需要 `wait_for_element` 等包装能力 | 包装后的 `WebPage` / `WebElement` |
+| `xbot_ai.web` | 历史项目中可能出现的包装层 | 需运行验证，不要默认其等待能力可用 |
 | `xbot_visual.web` | 影刀可视化组件内部 | 多数为原生对象 |
 
-重点：原生 `xbot.web.WebBrowser` 没有 `wait_for_element`，要么用原生 `wait_appear()`，要么使用 `xbot_ai.web`。
+重点：`xbot_ai.get_active_page()` 这类入口可以存在，但不要默认把 `xbot.web` 或 `xbot_ai` 理解成带有 `wait_for_element` 一类的等待元素能力。Agent 编码场景里如果只有 XPath 字符串，不建议直接依赖原生 `wait_appear(xpath_str, ...)`；可改看市场扩展文档里的 `activity_dae43741.browser_utils.wait_appear_by_xpath()` / `wait_disappear_by_xpath()`。
 
 ---
 
@@ -777,20 +777,20 @@ element = browser.find(my_selector, timeout=1)
 element.click(delay_after=0.3)
 ```
 
-### 26.2 包装层等待元素
+### 26.2 历史包装层写法需运行验证
 
 ```python
-from xbot_ai import get_active_page
-from xbot_ai.web.element import TimeoutException
+# 历史项目里可能看到类似写法，但不要默认当前环境可用
+# 如需等待 XPath 字符串，优先参考 activity_dae43741.browser_utils
+from xbot_extensions.activity_dae43741.browser_utils import wait_appear_by_xpath
 
-page = get_active_page(browser_type="chrome")
-
-try:
-    element = page.wait_for_element(my_selector, timeout=10)
-    element.click(delay_after=0.3)
-except TimeoutException:
+element = wait_appear_by_xpath(page, '//button[contains(., "查询")]', timeout=10)
+if not element:
     raise RuntimeError("目标元素等待超时")
+element.click(delay_after=0.3)
 ```
+
+说明：`xbot_ai.get_active_page()` 这类入口本身可以存在，但如果历史代码里进一步出现 `page.wait_for_element()` 这类写法，需运行验证，不要直接当成当前稳定能力。
 
 ### 26.3 输入中文
 
@@ -816,7 +816,7 @@ file_path = button.download(
 
 | 报错 / 现象 | 常见原因 | 处理 |
 |---|---|---|
-| `ChromiumBrowser` 没有 `wait_for_element` | 拿到的是原生 `xbot.web` 对象 | 改用 `xbot_ai.get_active_page()`，或用原生 `wait_appear()` |
+| `ChromiumBrowser` 没有 `wait_for_element` | 当前对象没有该方法，不代表 `get_active_page()` 入口不存在 | 不要依赖 `wait_for_element`；XPath 等待改看 `activity_dae43741.browser_utils.*`，选择器等待再考虑原生 `wait_appear()` |
 | `mode="Chrome"` 不稳定或报错 | 字符串大小写错误 | 改成 `mode="chrome"` |
 | `download_url` 不存在 | 源码拼写是 `dowload_url` | 调用 `browser.dowload_url(...)` |
 | `dowload_timeout` 拼写奇怪 | 源码就是这个拼写 | 按源码传 `dowload_timeout` |
