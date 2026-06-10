@@ -163,6 +163,8 @@ browser = web.get_active(mode="chrome")
 browsers = web.get_all(mode="chrome")
 ```
 
+注意：`web.get_active()` 依赖浏览器已经启动；如果当前还没有启动浏览器，这里会获取失败。初始化浏览器时建议直接用 `web.create('')`，再按业务需要传入 `mode` 和 `url`。
+
 | 方法 | 主要参数 | 说明 |
 |---|---|---|
 | `get(title=None, url=None, mode='cef', ...)` | `title` / `url` / `mode` / `open_page` / `page_url` | 按标题或网址匹配已打开网页 |

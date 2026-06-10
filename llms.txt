@@ -1,28 +1,38 @@
-# 影刀 xbot / AI 开发知识库索引
+# 影刀 xbot / AI 开发知识库
 
-本仓库是影刀 xbot / AI 开发知识库，不是真实影刀项目根目录。
+> 面向 Codex、Claude Code、OpenClaw 等 AI Agent 的影刀 xbot 编码版开发知识库，包含 API 参数、开发限制、排错方法、示例和常见坑点。
 
-## 核心入口
+本仓库不是真实影刀项目根目录。实际开发影刀项目时，应打开真实影刀项目根目录工作；本仓库只作为规则、API、示例和排错资料来源。
 
-- 当前知识库仓库的稳定 Agent 规则入口：`AGENTS.md`
-- xbot API 文档入口：`xbot-api-docs/docs/`
-- 浏览器专项文档：`xbot-api-docs/docs/browser.md`
+## Agent Rules
 
-## 目录说明
+- [AGENTS.md](AGENTS.md): 当前知识库仓库的稳定 Agent 主规则入口。
+- [xbot-api-docs/AGENTS.md](xbot-api-docs/AGENTS.md): xbot API 子目录的补充规则。
 
-- `AGENTS.md`：当前知识库仓库的主规则入口，供 Agent 稳定读取。
-- `xbot-api-docs/`：影刀 xbot API 文档、示例和排错资料。
-- `reference-analysis/`：旧项目扫描后的补充分析。
-- `shadowbot_dev_tool.py`：辅助同步真实影刀项目代码的工具。
+## LLM Wiki
 
-## 常见文档
+- [Wiki 总入口](wiki/index.md): 跨文档知识整理、常见问题、错误修正和待验证事项。
+- [错误修正记录](wiki/error-book.md): 记录历史错误结论、正确说法、依据和影响范围。
+- [待验证事项](wiki/unresolved.md): 记录还没有运行验证、源码验证或业务确认的内容。
 
-- 表格操作：`xbot-api-docs/docs/excel.md`
-- 键盘鼠标：`xbot-api-docs/docs/keyboard-mouse.md`
-- 市场指令排查：`xbot-api-docs/docs/debug/market-extension-source.md`
-- 市场指令开发：`xbot-api-docs/docs/extension-instructions.md`
+## Core Docs
 
-## 使用提示
+- [API 总入口](xbot-api-docs/docs/README.md): API 文档模块索引。
+- [基础对象与全局变量](xbot-api-docs/docs/package.md): 元素库、图像库、资源文件、全局变量的常用写法。
+- [浏览器操作](xbot-api-docs/docs/browser.md): xbot.web、浏览器对象、元素查找、点击、输入、下载、Cookie、网络监听等。
+- [表格操作](xbot-api-docs/docs/excel.md): Excel/WPS 创建、读取、写入、Sheet、区域和格式操作。
+- [Windows 自动化](xbot-api-docs/docs/win32.md): xbot.win32 窗口、鼠标、键盘和桌面自动化。
+- [日志记录](xbot-api-docs/docs/logging.md): xbot.app.logging 日志输出和导出。
+- [桌面对话框与通知](xbot-api-docs/docs/notification.md): xbot.app.dialog 对话框和通知。
+- [压缩解压](xbot-api-docs/docs/xzip.md): xbot.xzip 压缩和解压。
+- [键盘鼠标](xbot-api-docs/docs/keyboard-mouse.md): 全局键盘输入、鼠标移动、点击、滚轮、剪贴板输入等。
 
-1. 修改当前知识库仓库的通用 Agent 规则时，优先改根目录 `AGENTS.md`。
-2. 本文件只做索引和导航，不重复完整规则。
+## Debug
+
+- [市场指令源码排查](xbot-api-docs/docs/debug/market-extension-source.md): 市场指令参数不明确、可视化能跑但编码版异常时的源码排查方法。
+- [市场指令扩展开发](xbot-api-docs/docs/extension-instructions.md): 市场指令目录结构、调用规则、参数映射和开发指南。
+
+## Optional
+
+- [templates/AGENTS.md](templates/AGENTS.md): 可复制到真实影刀项目根目录的通用 Agent 规则模板。
+- [待优化清单.md](待优化清单.md): 后续需要补充、修正或验证的事项。
