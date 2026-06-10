@@ -100,10 +100,9 @@ glv['my_var'] = 'value'
 | 层级 | 推荐使用场景 | 返回对象 |
 |---|---|---|
 | `xbot.web` | 普通网页自动化主线 | 原生 `WebBrowser` / `WebElement` |
-| `xbot_ai.web` | 历史项目中可能出现的包装层 | 需运行验证，不要默认其等待能力可用 |
 | `xbot_visual.web` | 影刀可视化组件内部 | 多数为原生对象 |
 
-重点：`xbot_ai.get_active_page()` 这类入口可以存在，但不要默认把 `xbot.web` 或 `xbot_ai` 理解成带有 `wait_for_element` 一类的等待元素能力。Agent 编码场景里如果只有 XPath 字符串，不建议直接依赖原生 `wait_appear(xpath_str, ...)`；可改看市场扩展文档里的 `activity_dae43741.browser_utils.wait_appear_by_xpath()` / `wait_disappear_by_xpath()`。
+重点：不要默认把 `xbot.web` 理解成带有 `wait_for_element` 一类的等待元素能力。Agent 编码场景里如果只有 XPath 字符串，不建议直接依赖原生 `wait_appear(xpath_str, ...)`；可改看市场扩展文档里的 `activity_dae43741.browser_utils.wait_appear_by_xpath()` / `wait_disappear_by_xpath()`。
 
 ---
 
@@ -790,7 +789,7 @@ if not element:
 element.click(delay_after=0.3)
 ```
 
-说明：`xbot_ai.get_active_page()` 这类入口本身可以存在，但如果历史代码里进一步出现 `page.wait_for_element()` 这类写法，需运行验证，不要直接当成当前稳定能力。
+说明：如果历史代码里出现包装层方法或 `page.wait_for_element()` 这类写法，需运行验证，不要直接当成当前稳定能力。
 
 ### 26.3 输入中文
 

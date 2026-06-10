@@ -41,7 +41,7 @@
 
 ### 浏览器
 
-- `xbot_ai.get_active_page()` 这类入口可以存在，但不要默认把 `xbot.web` 或 `xbot_ai` 理解成带有 `wait_for_element` 一类的等待元素能力；XPath 等待优先参考 `activity_dae43741`
+- 不要默认把 `xbot.web` 理解成带有 `wait_for_element` 一类的等待元素能力；XPath 等待优先参考 `activity_dae43741`
 - 中文、长文本输入优先考虑 `clipboard_input()`
 
 ### 表格
