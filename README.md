@@ -4,6 +4,18 @@
 
 本仓库不是真实影刀项目根目录。Agent 实际开发影刀项目时，应打开真实影刀项目根目录工作。
 
+## 开发后同步
+
+Agent 在真实影刀项目目录完成开发或修改后，必须再运行本仓库根目录的 `shadowbot_dev_tool.py`。
+
+注意：`shadowbot_dev_tool.py` 不在真实影刀项目目录里，调用时不要默认使用当前目录下的相对路径。
+
+最小示例：
+
+```powershell
+python C:\Users\Administrator\Desktop\影刀xAI开发指南\shadowbot_dev_tool.py --project-dir "%LOCALAPPDATA%\ShadowBot\users\<user_id>\apps\<app_id>" prepare main.py
+```
+
 ## 怎么使用
 
 1. 先看 `AGENTS.md`，了解当前知识库仓库的稳定 Agent 规则。
@@ -12,6 +24,7 @@
 4. 需要浏览器操作时，查 `xbot-api-docs/docs/browser.md`。
 5. 需要表格操作时，查 `xbot-api-docs/docs/excel.md`。
 6. 需要市场指令排查时，查 `xbot-api-docs/docs/debug/market-extension-source.md`。
+7. 修改真实影刀项目代码后，运行本仓库根目录 `shadowbot_dev_tool.py` 完成同步准备。
 
 ## Agent 模板
 

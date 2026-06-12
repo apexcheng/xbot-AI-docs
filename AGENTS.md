@@ -6,6 +6,17 @@
 
 `templates/` 只保存可选的通用 Agent 规则模板，不参与本知识库检索和规则加载。
 
+## 关键工具提醒
+
+1. Agent 在真实影刀项目目录完成开发或修改后，必须运行本仓库根目录的 `shadowbot_dev_tool.py`。
+2. `shadowbot_dev_tool.py` 默认位于当前知识库根目录，不在真实影刀项目目录里。
+3. 不要假设当前工作目录就是知识库根目录；调用时要明确区分工具路径和 `--project-dir` 指向的真实影刀项目目录。
+4. 最小调用示例：
+
+```powershell
+python C:\Users\Administrator\Desktop\影刀xAI开发指南\shadowbot_dev_tool.py --project-dir "%LOCALAPPDATA%\ShadowBot\users\<user_id>\apps\<app_id>" prepare main.py
+```
+
 ## 使用顺序
 
 1. 先看 `llms.txt`，了解项目总览、目录结构和文档入口。
