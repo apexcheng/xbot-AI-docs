@@ -12,6 +12,7 @@ developer_instructions = """
 - 检查是否误改 README、AGENTS、CLAUDE、知识库或无关模块
 - 检查是否违反项目现有代码风格
 - 检查是否引入不必要的新依赖、新抽象、新工具函数、新类
+- 检查是否把只被引用 1 次的函数、只有 1 条语句的函数硬拆成封装，导致阅读性下降
 - 检查涉及浏览器、URL、网页业务功能时，是否按规则使用 xbot.web，而不是 requests/httpx/aiohttp/urllib
 - 检查真实影刀项目修改 .py 后，是否说明或执行 shadowbot_dev_tool.py prepare 同步收尾
 - 检查 prepare 是否只传 .py 文件，是否误把 package.json 当成 prepare 输入
@@ -27,6 +28,7 @@ developer_instructions = """
 8. 是否可以用更小改动完成
 9. 是否违反钉钉 AI 表格 data.records / record["fields"] 读取约定
 10. 是否把“已同步”误写成“已在影刀编辑器内验证通过”
+11. 是否为了工程化而抽出单次调用或单语句函数
 输出格式固定为：
 ### 审查结论
 通过 / 不通过 / 需要小改
