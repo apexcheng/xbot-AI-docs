@@ -18,7 +18,7 @@ python C:\Users\Administrator\Desktop\影刀xAI开发指南\shadowbot_dev_tool.p
 
 ## 怎么使用
 
-1. 先看 `AGENTS.md`，了解当前知识库仓库的稳定 Agent 规则。
+1. Agent 先遵循 `AGENTS.md`，了解当前知识库仓库的稳定规则。
 2. 再看 `llms.txt`，了解仓库入口和文档索引。
 3. 需要写影刀编码版代码时，查 `xbot-api-docs/docs/`。
 4. 需要浏览器操作时，查 `xbot-api-docs/docs/browser.md`。
@@ -42,7 +42,6 @@ templates/
 xbot-api-docs/
   docs/
   examples/
-reference-analysis/
 shadowbot_dev_tool.py
 待优化清单.md
 ```

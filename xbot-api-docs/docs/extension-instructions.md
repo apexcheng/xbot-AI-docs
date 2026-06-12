@@ -705,6 +705,39 @@ result = yd_ai_table_action(
 )
 ```
 
+**项目里的推荐包装方式：**
+
+```python
+def table_action(action, client_id, client_secret, base_id, user_id, sheet, params=None):
+    from xbot_extensions.activity_5b77c4ce.croe import yd_ai_table_action
+
+    result = yd_ai_table_action(
+        action=action,
+        client_id=client_id,
+        client_secret=client_secret,
+        base_id=base_id,
+        user_id=user_id,
+        sheet=sheet,
+        params=params or {},
+    )
+    if not isinstance(result, dict):
+        raise ValueError(f"表格操作 {action} 返回异常: {result!r}")
+    return result
+
+
+records = table_action(
+    "获取多行记录分页",
+    client_id, client_secret, base_id, user_id,
+    sheet="账号表",
+    params={"page_size": 100, "max_pages": 100},
+).get("data", {}).get("records") or []
+```
+
+补充约定：
+
+- 项目里更推荐先统一封装 `yd_ai_table_action()`，再让业务层读取 `data.records`。
+- 记录结构进入业务逻辑后，优先直接按 `record["fields"]` 使用；多选字段显示值取 `.get("name")`。
+
 ---
 
 ### 4.3 钉钉企业机器人消息_v2 (activity_6f13bae5)
@@ -750,6 +783,34 @@ md = to_markdown_table(
     max_cell_length=100
 )
 ```
+
+**项目里的 Markdown 群通知模式：**
+
+```python
+from xbot_extensions.activity_6f13bae5 import process2 as send_group_message
+from xbot.app import logging
+
+try:
+    send_group_message(
+        app_key=app_key,
+        app_secret=app_secret,
+        open_conversation_id=open_conversation_id,
+        title="商品链接价格监测完成",
+        message_type="markdown",
+        content=content,
+        webhook_url="",
+        webhook_secret="",
+        at_mobiles=[],
+        at_all=False,
+    )
+except Exception as e:
+    logging.error(f"钉钉群通知发送失败：{e}")
+```
+
+补充约定：
+
+- 群通知里更推荐 `title` 和 `content` 分离，正文统一传 Markdown。
+- 如果通知失败只影响提醒链路，不影响主业务，可只记录日志，不中断主流程。
 
 ---
 
@@ -822,6 +883,22 @@ web_page.wait_load_completed(timeout=30)
 target = web_page.find_by_xpath('//input[@type="text"]', timeout=20)
 target.clipboard_input("测试关键字", delay_after=0.3)
 ```
+
+**历史项目常见的 Chrome Profile 激活模式（需运行验证）：**
+
+```python
+from xbot_extensions.activity_4303bbee import process22 as activate
+from xbot import web
+
+activate(profile="Default", type="chrome")
+browser = web.create("https://example.com", mode="chrome", load_timeout=20)
+browser.wait_load_completed(timeout=15)
+```
+
+使用建议：
+
+- 适合需要复用指定 Chrome 用户目录、维持既有登录态的任务。
+- 当前知识库还没有这组能力的正式参数手册，先按历史项目经验记录，并保留 `需运行验证` 标注。
 
 ---
 

@@ -28,7 +28,6 @@ python C:\Users\Administrator\Desktop\影刀xAI开发指南\shadowbot_dev_tool.p
 
 ## Core Docs
 
-- [API 总入口](xbot-api-docs/docs/README.md): API 文档模块索引。
 - [基础对象与全局变量](xbot-api-docs/docs/package.md): 元素库、图像库、资源文件、全局变量的常用写法。
 - [浏览器操作](xbot-api-docs/docs/browser.md): xbot.web、浏览器对象、元素查找、点击、输入、下载、Cookie、网络监听等。
 - [表格操作](xbot-api-docs/docs/excel.md): Excel/WPS 创建、读取、写入、Sheet、区域和格式操作。

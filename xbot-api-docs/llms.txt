@@ -14,7 +14,6 @@
 
 ## 常见入口
 
-- API 文档总入口：`docs/README.md`
 - 浏览器操作：`docs/browser.md`
 - 表格操作：`docs/excel.md`
 - 键盘鼠标操作：`docs/keyboard-mouse.md`

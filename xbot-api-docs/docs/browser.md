@@ -809,6 +809,42 @@ file_path = button.download(
 )
 ```
 
+### 26.5 电商项目常用浏览器组织模式
+
+```python
+from xbot import web
+
+browser = web.create(link, mode="chrome", load_timeout=20)
+browser.wait_load_completed(timeout=15)
+
+if not ensure_login(browser, account):
+    raise RuntimeError("账号未登录")
+
+for page in web.get_all(mode="chrome"):
+    if page.get_url() != browser.get_url():
+        page.close()
+```
+
+适用经验：
+
+- 电商页通常先 `web.create(..., mode="chrome", load_timeout=20)`，再补一层 `browser.wait_load_completed(timeout=15)`。
+- 登录流程建议先判断是否已登录，未登录再跳登录页，不要每次无条件重登。
+- 多页面任务结束后，可用 `web.get_all(mode="chrome")` 遍历关闭无关页面，只保留当前任务页。
+- `browser.get_cookies()` 可用于登录态判定；例如项目里会按 Cookie 名判断拼多多是否已登录。
+
+`browser.get_cookies()` 示例：
+
+```python
+cookies = browser.get_cookies()
+names = [cookie.get("name") for cookie in cookies]
+is_logged_in = "PDDAccessToken" in names or "pdd_user_id" in names
+```
+
+说明：
+
+- Cookie 名判断属于项目实战模式，不代表所有站点都适用；跨项目复用前建议先运行验证。
+- 页面清理逻辑只适合“当前浏览器实例由本流程统一接管”的任务，不要误关用户手工保留的工作页。
+
 ---
 
 ## 27. 排错速查
