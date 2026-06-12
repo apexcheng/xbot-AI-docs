@@ -45,4 +45,6 @@ python C:\Users\Administrator\Desktop\影刀xAI开发指南\shadowbot_dev_tool.p
 ## Optional
 
 - [templates/AGENTS.md](templates/AGENTS.md): 可复制到真实影刀项目根目录的通用 Agent 规则模板。
+- [templates/.claude/CLAUDE.md](templates/.claude/CLAUDE.md): 可复制到真实影刀项目 `.claude/CLAUDE.md` 的 Claude Code 规则模板。
+- [templates/.codex/agents/](templates/.codex/agents/): 可复制到真实影刀项目 `.codex/agents/` 的 Codex 只读子 agent 模板。
 - [待优化清单.md](待优化清单.md): 后续需要补充、修正或验证的事项。
