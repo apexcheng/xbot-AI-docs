@@ -110,8 +110,8 @@ python C:\Users\Administrator\Desktop\影刀xAI开发指南\shadowbot_dev_tool.p
 7. 同步前先核对：`main(args)` 入口结构是否正确、`args` 参数名是否已配置、`package.variables` 变量名是否一致、元素库名称和资源文件名称是否一致、目标项目环境是否已安装所需市场指令。
 8. 测试由人类在影刀编辑器中完成；Agent 根据测试反馈继续修改并再次同步，不把“已同步”写成“已在编辑器内验证通过”。
 9. `shadowbot_dev_tool.py prepare` 只接收 `.py` 文件作为输入；不要把 `package.json` 之类非 Python 文件直接传给 `prepare`。
-10. `prepare` 会顺带处理 `package.json` 的 flow 更新和编译；如果只改了 Python 文件，正常只传相关 `.py` 文件即可。
-11. `prepare` 或工具落盘后若只看到 `package.json` 换行符变化，通常属于正常现象，不要把纯换行差异误判为业务改动。
+10. `prepare` 会顺带处理 `package.json` 的 flow 更新和编译，但不会自动备份项目；如果只改了 Python 文件，正常只传相关 `.py` 文件即可。
+11. 如需备份，请显式调用 `shadowbot_dev_tool.py backup ...`，不要把 `prepare` 当成自动备份命令。
 
 最小调用示例：
 

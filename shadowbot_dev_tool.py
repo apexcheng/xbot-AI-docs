@@ -313,16 +313,13 @@ def _discover_helper_modules(project_dir, entry_files):
 def command_prepare(args):
     """Run the common external-edit workflow.
 
-    It backs up the files, ensures the flows exist, and compiles them.
+    It ensures the flows exist and compiles them.
     Helper modules imported by entry .py files are automatically discovered and compiled too.
     """
     project_dir = resolve_project_dir(args.project_dir)
 
     # Discover helper modules imported by the entry files
     helpers = _discover_helper_modules(project_dir, args.files)
-
-    all_files = list(dict.fromkeys(args.files + ["package.json"] + helpers))
-    backup_dir, copied = create_backup(project_dir, all_files)
 
     package_data = load_package_json(project_dir)
     results = []
@@ -334,9 +331,6 @@ def command_prepare(args):
     to_compile = list(dict.fromkeys(args.files + helpers))
     python_exe = compile_files(project_dir, to_compile)
 
-    print(f"backup_dir={backup_dir}")
-    for item in sorted(set(copied)):
-        print(f"copied={item}")
     for result in results:
         print(
             f"{result['action']} flow:"
@@ -389,7 +383,7 @@ def build_parser():
 
     parser_prepare = subparsers.add_parser(
         "prepare",
-        help="外部改完代码后的常用收尾：备份、登记 flow、编译",
+        help="外部改完代码后的常用收尾：登记 flow、编译",
     )
     parser_prepare.add_argument("files", nargs="+", help="刚刚修改过的 .py 文件")
     parser_prepare.add_argument("--group", default=None, help="flow 分组名；不传则保留已有分组")
